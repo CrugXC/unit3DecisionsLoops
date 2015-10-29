@@ -22,4 +22,24 @@ public class FindMaxAndMin
        
        return largest;
     }
+    
+   public static double findMin()
+   {
+       Scanner s1 = new Scanner(System.in);
+       System.out.println("Enter a series of number or any character to quit.");
+       
+       double smallest = s1.nextDouble();
+       
+       while (s1.hasNextDouble())
+       {
+           double input = s1.nextDouble();
+           
+           if (input < smallest)
+           {
+               smallest = input;
+           }
+       }
+       
+       return smallest;
+    } 
 }
