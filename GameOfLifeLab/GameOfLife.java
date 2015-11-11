@@ -4,6 +4,7 @@ import info.gridworld.actor.Rock;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
+import java.util.ArrayList;
 
 /**
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
@@ -93,7 +94,7 @@ public class GameOfLife
      * @post    the world has been populated with a new grid containing the next generation
      * 
      */
-    private void createNextGeneration()
+    public void createNextGeneration()
     {
         /** You will need to read the documentation for the World, Grid, and Location classes
          *      in order to implement the Game of Life algorithm and leverage the GridWorld framework.
@@ -103,7 +104,49 @@ public class GameOfLife
         Grid<Actor> grid = world.getGrid();
         
         // insert magic here...
+        ArrayList <Boolean> willDie = new ArrayList<Boolean>();
+        ArrayList <Location> locList = grid.getOccupiedLocations();
         
+        for (Location currLoc: locList)
+        {
+            if(grid.getValidAdjacentLocations(currLoc).size() > 3 || grid.getValidAdjacentLocations(currLoc).size() < 2)
+            {
+                willDie.add(true);
+            }
+            
+            else
+            {
+                willDie.add(false);
+            }
+        }
+        
+        ArrayList <Location> emptyLocList = new ArrayList <Location>();
+        
+        for (Location currLoc: locList)
+        {
+            emptyLocList = grid.getEmptyAdjacentLocations(currLoc);
+            
+            for(Location emptyCurrLoc: emptyLocList)
+            {
+                if (grid.getOccupiedAdjacentLocations(currLoc).size() == 3)
+                {
+                    Rock rockAdd = new Rock();
+                    grid.put(emptyCurrLoc, rockAdd);
+                }
+            }
+        }
+        
+        for (int index = 0;
+             index < locList.size();
+             index ++)
+        {
+            if (willDie.get(index) == true)
+            {
+                grid.remove(locList.get(index));
+            }
+        }
+        
+        System.out.println("Magic has been inserted.");
     }
     
     /**
