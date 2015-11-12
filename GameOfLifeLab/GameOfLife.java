@@ -110,7 +110,7 @@ public class GameOfLife
         
         for (Location currLoc: locList)
         {
-            if(grid.getOccupiedAdjacentLocations(currLoc).size() > 3 || grid.getValidAdjacentLocations(currLoc).size() < 2)
+            if(grid.getOccupiedAdjacentLocations(currLoc).size() > 3 || grid.getOccupiedAdjacentLocations(currLoc).size() < 2)
             {
                 willDie.add(true);
             }
