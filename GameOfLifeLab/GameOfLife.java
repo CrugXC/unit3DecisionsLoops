@@ -5,6 +5,7 @@ import info.gridworld.grid.Grid;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
@@ -109,7 +110,7 @@ public class GameOfLife
         
         for (Location currLoc: locList)
         {
-            if(grid.getValidAdjacentLocations(currLoc).size() > 3 || grid.getValidAdjacentLocations(currLoc).size() < 2)
+            if(grid.getOccupiedAdjacentLocations(currLoc).size() > 3 || grid.getValidAdjacentLocations(currLoc).size() < 2)
             {
                 willDie.add(true);
             }
@@ -136,17 +137,19 @@ public class GameOfLife
             }
         }
         
+        
         for (int index = 0;
              index < locList.size();
              index ++)
         {
+            System.out.println(locList.get(index) + "\t" + willDie.get(index));
             if (willDie.get(index) == true)
             {
                 grid.remove(locList.get(index));
             }
         }
         
-        System.out.println("Magic has been inserted.");
+        System.out.println("\nNext Generation.");
     }
     
     /**
@@ -190,8 +193,25 @@ public class GameOfLife
      *
      */
     public static void main(String[] args)
+        throws InterruptedException
     {
         GameOfLife game = new GameOfLife();
+        
+        Scanner s1 = new Scanner(System.in);
+        
+        int genTimes = 2;
+        
+        for (int i = 0;
+             i < genTimes;
+             i++)
+        {
+            System.out.print("Generations: ");
+            genTimes = s1.nextInt();
+            game.createNextGeneration();
+            Thread.sleep(100);
+        }
+            
+       
     }
 
 }
