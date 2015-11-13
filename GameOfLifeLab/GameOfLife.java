@@ -122,6 +122,7 @@ public class GameOfLife
         }
         
         ArrayList <Location> emptyLocList = new ArrayList <Location>();
+        ArrayList <Location> spawnHere = new ArrayList<Location>();
         
         for (Location currLoc: locList)
         {
@@ -129,14 +130,19 @@ public class GameOfLife
             
             for(Location emptyCurrLoc: emptyLocList)
             {
-                if (grid.getOccupiedAdjacentLocations(currLoc).size() == 3)
+                if (grid.getOccupiedAdjacentLocations(emptyCurrLoc).size() == 3)
                 {
-                    Rock rockAdd = new Rock();
-                    grid.put(emptyCurrLoc, rockAdd);
+                    spawnHere.add(emptyCurrLoc);
                 }
             }
         }
         
+        for (Location spawn: spawnHere)
+        {
+            grid.put(spawn, new Rock());
+        }
+        
+        spawnHere.clear();
         
         for (int index = 0;
              index < locList.size();
@@ -149,7 +155,6 @@ public class GameOfLife
             }
         }
         
-        System.out.println("\nNext Generation.");
     }
     
     /**
@@ -199,19 +204,22 @@ public class GameOfLife
         
         Scanner s1 = new Scanner(System.in);
         
-        int genTimes = 2;
+        System.out.print("Generations: ");
+        int genTimes = 0;
         
-        for (int i = 0;
-             i < genTimes;
-             i++)
+        while (s1.hasNextInt())
         {
-            System.out.print("Generations: ");
             genTimes = s1.nextInt();
-            game.createNextGeneration();
-            Thread.sleep(100);
-        }
+            for (int i = 0;
+                 i < genTimes;
+                 i++)
+            {
+                game.createNextGeneration();
+                Thread.sleep(500);
+            }
             
-       
+            System.out.print("Generations: ");
+        }
     }
 
 }
