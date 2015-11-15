@@ -19,9 +19,9 @@ public class GameOfLife
     // the world comprised of the grid that displays the graphics for the game
     private ActorWorld world;
     
-    // the game board will have 5 rows and 5 columns
-    private final int ROWS = 5;
-    private final int COLS = 5;
+    // the game board will have 15 rows and 40 columns
+    private final int ROWS = 40;
+    private final int COLS = 40;
     
     /**
      * Default constructor for objects of class GameOfLife
@@ -39,6 +39,22 @@ public class GameOfLife
         
         // populate the game
         populateGame();
+        
+        // display the newly constructed and populated world
+        world.show();
+        
+    }
+    
+    public GameOfLife(int check)
+    {
+        // create the grid, of the specified size, that contains Actors
+        BoundedGrid<Actor> grid = new BoundedGrid<Actor>(ROWS, COLS);
+        
+        // create a world based on the grid
+        world = new ActorWorld(grid);
+        
+        // populate the game
+        populateGame(1);
         
         // display the newly constructed and populated world
         world.show();
@@ -86,7 +102,22 @@ public class GameOfLife
         Location loc5 = new Location(Y5, X5);
         grid.put(loc5, rock5);
     }
-
+    
+    private void populateGame(int select)
+    {
+        int[] rowList = {6, 6, 7, 7, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 10, 10, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 4, 4, 5, 5};
+        int[] colList = {3, 4, 3, 4, 15, 16, 14, 18, 19, 13, 13, 17, 19, 20, 19, 13, 14, 18, 15, 16, 27, 25, 27, 23, 24, 23, 24, 23, 24, 25, 27, 27, 37, 38, 37, 38};
+        
+        Grid<Actor> grid = world.getGrid();
+        
+        for (int index = 0;
+             index < rowList.length;
+             index++)
+        {
+            grid.put(new Location(rowList[index], colList[index]), new Rock());
+        }
+    }
+    
     /**
      * Generates the next generation based on the rules of the Game of Life and updates the grid
      * associated with the world
@@ -200,7 +231,7 @@ public class GameOfLife
     public static void main(String[] args)
         throws InterruptedException
     {
-        GameOfLife game = new GameOfLife();
+        GameOfLife game = new GameOfLife(1);
         
         Scanner s1 = new Scanner(System.in);
         
