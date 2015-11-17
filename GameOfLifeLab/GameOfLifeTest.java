@@ -8,8 +8,8 @@ import info.gridworld.actor.Actor;
 /**
  * The test class GameOfLifeTest.
  *
- * @author  @gcschmit
- * @version 19 July 2014
+ * @author  Jay Rixie
+ * @version November 10th, 2015
  */
 public class GameOfLifeTest
 {

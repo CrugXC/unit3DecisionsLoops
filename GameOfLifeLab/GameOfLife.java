@@ -11,15 +11,15 @@ import java.util.Scanner;
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
  * Also demonstrates how to provide accessor methods to make the class testable by unit tests.
  * 
- * @author @gcschmit
- * @version 18 July 2014
+ * @author Jay Rixie
+ * @version November 10th, 2015
  */
 public class GameOfLife
 {
     // the world comprised of the grid that displays the graphics for the game
     private ActorWorld world;
     
-    // the game board will have 15 rows and 40 columns
+    // the game board will have 40 rows and 40 columns
     private final int ROWS = 40;
     private final int COLS = 40;
     
@@ -114,7 +114,7 @@ public class GameOfLife
              index < rowList.length;
              index++)
         {
-            grid.put(new Location(rowList[index], colList[index]), new Rock());
+            grid.put(new Location(rowList[index], colList[index]), new Reddit());
         }
     }
     
@@ -170,7 +170,7 @@ public class GameOfLife
         
         for (Location spawn: spawnHere)
         {
-            grid.put(spawn, new Rock());
+            grid.put(spawn, new Reddit());
         }
         
         spawnHere.clear();
@@ -186,6 +186,7 @@ public class GameOfLife
             }
         }
         
+        world.show();
     }
     
     /**
